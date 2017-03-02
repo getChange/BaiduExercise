@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟数列</title>
+    <style>
+        li{
+            list-style: none;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            line-height: 30px;
+            text-align: center;
+            margin: 20px 10px 0 0;
+            padding: 0 10px;
+            float: left;
+            background: #999;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="inputNum" value="">
+    <button id="left_in">左侧入</button>
+    <button id="right_in">右侧入</button>
+    <button id="left_out">左侧出</button>
+    <button id="right_out">右侧出</button>
+    <div id="showNum"></div>
+<script>
+window.onload=function () {
+    var inputNum = document.getElementById("inputNum");
+    var left_in = document.getElementById("left_in");
+    var right_in = document.getElementById("right_in");
+    var left_out = document.getElementById("left_out");
+    var right_out = document.getElementById("right_out");
+    var showNum = document.getElementById("showNum");
+
+    left_in.onclick = function(){
+            var li = document.createElement("li");
+            li.innerHTML = inputNum.value;
+            if(inputNum.value == ""){
+                alert("不能为空！");
+            }else if(!isNaN(inputNum.value)){
+                showNum.insertBefore(li,showNum.firstChild);
+                inputNum.value = null;
+            }else{
+                alert("输入错误");
+            }
+        }
+    right_in.onclick = function(){
+            var li = document.createElement("li");
+            li.innerHTML = inputNum.value;
+            if(inputNum.value == ""){
+                alert("不能为空！");
+            }else if(!isNaN(inputNum.value)){
+                showNum.appendChild(li,showNum.lastChild);
+                inputNum.value = null;
+            }else{
+                alert("输入错误");
+            }
+            
+        }
+    left_out.onclick = function(){
+            if(showNum.hasChildNodes()){
+                alert(showNum.firstChild.innerText);
+                showNum.removeChild(showNum.firstChild);
+            }else{
+                alert("null");
+            }
+        }
+    right_out.onclick = function(){
+            if(showNum.hasChildNodes()){
+                alert(showNum.firstChild.innerText);
+                showNum.removeChild(showNum.lastChild);
+            }else{
+                alert("null");
+            }
+        }
+        showNum.onmouseover = function(){
+            var li = showNum.getElementsByTagName("li");
+            for(var i in li){
+                li[i].index = i;
+                li[i].onclick = function(){
+                    showNum.removeChild(showNum.childNodes[this.index]);
+                }
+            }
+        }
+}
+</script>
+</body>
+</html>
